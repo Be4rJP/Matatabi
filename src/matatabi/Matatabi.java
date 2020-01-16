@@ -22,7 +22,7 @@ import twitter4j.User;
 public class Matatabi {
     
     public static int PLAYER_COUNT = 0;
-    public static int PERIOD = 60000; // 1800000[ms]
+    public static int PERIOD = 1800000; // 1800000[ms]
     public static twitter4j.Twitter twitter = new TwitterFactory().getInstance();
 
     /**
