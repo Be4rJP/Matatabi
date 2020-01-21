@@ -24,6 +24,7 @@ public class Matatabi {
     public static int PLAYER_COUNT = 0;
     public static int PERIOD = 1800000; // 1800000[ms]
     public static twitter4j.Twitter twitter = new TwitterFactory().getInstance();
+    public static boolean IS_ONLINE = true;
 
     /**
      * @param args the command line arguments
@@ -44,11 +45,22 @@ public class Matatabi {
             
             public void run() {
                 
+                //時刻の取得
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd H:mm");
+                String time = sdf.format(timestamp);
+                
                 MineStat ms = new MineStat("play.minecraft.jp", 25565);
-                if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT) //前にチェックした時より増えていればツイートする
-                    Tweet("現在のJPMCPVPのプレイヤー人数は " + ms.getCurrentPlayers() + " 人です (" + str + ")");
+                if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT || Integer.valueOf(ms.getCurrentPlayers()) >= 4) //前にチェックした時より増えていればツイートする
+                    Tweet("現在のプレイヤー人数は " + ms.getCurrentPlayers() + " 人です (" + time + ")");
                 PLAYER_COUNT = Integer.valueOf(ms.getCurrentPlayers());
                 
+                if(!IS_ONLINE){
+                    IS_ONLINE = ms.isServerUp();
+                    if(IS_ONLINE)
+                        Tweet("JPMCPVPがオンラインになりました");
+                }
+                IS_ONLINE = ms.isServerUp();
             }
         };
         timer.scheduleAtFixedRate(task, 1000, PERIOD);
