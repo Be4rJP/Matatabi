@@ -45,22 +45,26 @@ public class Matatabi {
             
             public void run() {
                 
-                //時刻の取得
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd H:mm");
-                String time = sdf.format(timestamp);
+                try{
+                    //時刻の取得
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd H:mm");
+                    String time = sdf.format(timestamp);
                 
-                MineStat ms = new MineStat("play.minecraft.jp", 25565);
-                if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT || Integer.valueOf(ms.getCurrentPlayers()) >= 4) //前にチェックした時より増えていればツイートする
-                    Tweet("現在のプレイヤー人数は " + ms.getCurrentPlayers() + " 人です (" + time + ")");
-                PLAYER_COUNT = Integer.valueOf(ms.getCurrentPlayers());
+                    MineStat ms = new MineStat("play.minecraft.jp", 25565);
+                    if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT || Integer.valueOf(ms.getCurrentPlayers()) >= 4) //前にチェックした時より増えていればツイートする
+                        Tweet("現在のプレイヤー数は " + ms.getCurrentPlayers() + " 人です (" + time + ")");
+                    PLAYER_COUNT = Integer.valueOf(ms.getCurrentPlayers());
                 
-                if(!IS_ONLINE){
+                    if(!IS_ONLINE){
+                        IS_ONLINE = ms.isServerUp();
+                        if(IS_ONLINE)
+                            Tweet("JPMCPVPがオンラインになりました");
+                    }
                     IS_ONLINE = ms.isServerUp();
-                    if(IS_ONLINE)
-                        Tweet("JPMCPVPがオンラインになりました");
+                }catch(Exception e){
+                    System.out.println(e);
                 }
-                IS_ONLINE = ms.isServerUp();
             }
         };
         timer.scheduleAtFixedRate(task, 1000, PERIOD);
