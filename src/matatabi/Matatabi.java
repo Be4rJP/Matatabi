@@ -53,7 +53,7 @@ public class Matatabi {
                 
                     MineStat ms = new MineStat("play.minecraft.jp", 25565);
                     if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT || Integer.valueOf(ms.getCurrentPlayers()) >= 4) //前にチェックした時より増えていればツイートする
-                        Tweet("現在のプレイヤー数は " + ms.getCurrentPlayers() + " 人です (" + time + ")");
+                        Tweet("現在のプレイヤー数は " + ms.getCurrentPlayers() + " 人です [" + String.valueOf(ms.getLatency()) + "ms]\n(" + time + ")");
                     PLAYER_COUNT = Integer.valueOf(ms.getCurrentPlayers());
                 
                     if(!IS_ONLINE){
