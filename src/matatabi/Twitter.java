@@ -1,4 +1,3 @@
-
 package matatabi;
 
 import twitter4j.Status;
