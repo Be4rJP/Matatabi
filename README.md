@@ -19,3 +19,7 @@ java -jar Matatabi.jar
 ## License
 
 https://github.com/Be4rJP/Matatabi/blob/master/LICENSE
+
+## Download jar file
+
+https://github.com/Be4rJP/Matatabi/releases/tag/1.0.0
