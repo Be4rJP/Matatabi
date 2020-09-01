@@ -15,3 +15,7 @@ JPMCPVPのオンラインプレイヤー数を30分置きにチェックし、
 ```bash
 java -jar Matatabi.jar
 ```
+
+##License
+
+https://github.com/Be4rJP/Matatabi/blob/master/LICENSE
