@@ -42,7 +42,7 @@ public class Matatabi {
         //PERIODの間隔でオンラインプレイヤー数をチェック
         Timer timer = new Timer(); 
         TimerTask task = new TimerTask() {
-            
+            @Override
             public void run() {
                 
                 try{
@@ -52,7 +52,7 @@ public class Matatabi {
                     String time = sdf.format(timestamp);
                 
                     MineStat ms = new MineStat("play.minecraft.jp", 25565);
-                    if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT || Integer.valueOf(ms.getCurrentPlayers()) >= 4) //前にチェックした時より増えていればツイートする
+                    if(Integer.valueOf(ms.getCurrentPlayers()) > PLAYER_COUNT || Integer.valueOf(ms.getCurrentPlayers()) >= 3) //前にチェックした時より増えていればツイートする
                         Tweet("現在のプレイヤー数は " + ms.getCurrentPlayers() + " 人です [" + String.valueOf(ms.getLatency()) + "ms]\n(" + time + ")");
                     PLAYER_COUNT = Integer.valueOf(ms.getCurrentPlayers());
                 
